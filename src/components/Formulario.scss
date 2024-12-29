@@ -1,0 +1,283 @@
+@import '../styles/colors.scss';
+
+$inner-shadow: inset .2rem .2rem .5rem var(black), 
+inset -.2rem -.2rem .5rem var(white);
+$shadow: .3rem .3rem .6rem var(grey), 
+-.2rem -.2rem .5rem var(white);
+
+
+.options-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 30px;
+}
+.add-svg{
+    cursor: pointer;
+}
+
+.search {
+  grid-column: 3 / 4;
+  grid-row: 2 / 3;
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  &__input {
+    width: 20.4rem;
+    height: 4rem;
+    border: none;
+    font-size: 1.4rem;
+    padding-left: 3.8rem;
+    box-shadow: $inner-shadow;
+    background: none;
+    font-family: inherit;
+    color: var(--greyDark);
+
+    &::placeholder { color: var(--greyLight-3); }
+    &:focus { 
+      outline: none; 
+      box-shadow: $shadow; 
+
+       + .search__icon {
+        color: var(--primary);
+      }
+    }
+  }
+
+  &__icon {
+    height: 2rem;
+    position: absolute;
+    font-size: 2rem;
+    padding: 0 1rem;
+    display: flex;
+    color: var(--greyDark);
+    transition: .3s ease;
+  }
+}
+/*-----*/
+.button-options-2 {
+  --i: var(--light, 0);
+  --j: var(--press, 0);
+  --not-j: calc(1 - var(--j));
+  width: 4.9em;
+  height:1.3em;
+  transform: scale(calc(1 - var(--j)*.02));
+  background: #e8e8e8;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+.button-options-2{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+  padding-bottom: 2px;
+}
+.button-options-2::after {
+  filter: Contrast(0) Sepia(var(--i)) Hue-Rotate(calc(var(--hue) - 50deg)) Saturate(5) Opacity(calc(var(--i) + .21*var(--not-i))) Drop-Shadow(1px 1px hsla(0, 0%, 100%, var(--not-i)));
+  transition: filter 0.3s;
+  content: attr(data-ico);
+}
+.button-options-2:focus {
+  outline: none;
+}
+.button-options-2:active {
+  --press: 2 ;
+}
+.button-options-2:hover {
+  --press: 1 ;
+}
+
+/*-----*/
+.button-options {
+    --i: var(--light, 0);
+    --not-i: calc(1 - var(--i));
+    --j: var(--press, 0);
+    --not-j: calc(1 - var(--j));
+    z-index: var(--i);
+    border: none;
+    width: 1.5em;
+    height:1.5em;
+    border-radius: 15%;
+    transform: scale(calc(1 - var(--j)*.02));
+    background: #e8e8e8;
+    font-size: 1.7em;
+    transition: box-shadow 0.3s, transform 0.3s cubic-bezier(0.2, 4, 1, 3);
+    cursor: pointer;
+  }
+  .button-options::after {
+    filter: Contrast(0) Sepia(var(--i)) Hue-Rotate(calc(var(--hue) - 50deg)) Saturate(5) Opacity(calc(var(--i) + .21*var(--not-i))) Drop-Shadow(1px 1px hsla(0, 0%, 100%, var(--not-i)));
+    transition: filter 0.3s;
+    content: attr(data-ico);
+  }
+  .button-options:focus {
+    outline: none;
+  }
+  .button-options:active {
+    --press: 2 ;
+  }
+  .button-options:hover {
+    --press: 1 ;
+  }
+
+  //Vars
+  :root {
+    --rad: 7rem;
+    --dur: .3s;
+    --color-dark: #fff;
+    --color-light: #201313;
+    --color-brand: #242947;
+    --font-fam: 'Lato', sans-serif;
+    --height: 2rem;
+    --btn-width: 4rem;
+    --bez: cubic-bezier(0, 0, 0.43, 1);
+  }
+
+
+.search-form {
+    position: relative;
+    width: 15rem;
+    border-radius: var(--rad);
+  }
+  #search, .button-search {
+    height: var(--height);
+    font-family: var(--font-fam);
+    border: 0;
+    color: var(--color-dark);
+    font-size: 1.1rem;
+    
+  }
+  #search[type="search"] {
+    outline: 0; // <-- shold probably remove this for better accessibility, adding for demo aesthetics for now.
+    width: 100%;
+    background: var(--color-light);
+    padding: 0 1.6rem;
+    border-radius: var(--rad);
+    appearance: none; //for iOS input[type="search"] roundedness issue. border-radius alone doesn't work
+    transition: all var(--dur) var(--bez);
+    transition-property: width, border-radius;
+    z-index: 1;
+    position: relative;
+  }
+
+ .button-search {
+    display: none; // prevent being able to tab to it
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: var(--btn-width);
+    font-weight: bold;
+    background: var(--color-brand);
+    border-radius: 0 var(--rad) var(--rad) 0;
+    
+   
+  }
+  #search:not(:placeholder-shown) {
+    border-radius: var(--rad) 0 0 var(--rad);
+    width: calc(100% - var(--btn-width));
+    + button {
+      display: block;
+    }
+  }
+.label-search {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+  }
+
+  button {
+
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    
+    + button {
+      margin: 0 0 0 0px;
+    }
+  }
+  
+  
+
+  .action-button {
+    --hue: var(--red-hue);
+    outline: 2px solid hsla(var(--hue), 20%, 0%, .2);
+    
+    &:hover,
+    &:focus-visible {
+      background: hsl(var(--hue), 100%, 90%);
+      outline: 2px solid hsla(var(--hue), 80%, 30%, .5);
+      
+      .action-button__path {
+        animation: 0.62s linear 1 lid-lift;
+        fill: hsl(var(--hue), 60%, 30%);
+      }
+      .action-button__path--can {
+        animation-name: can-tilt;
+      }
+    }
+  
+    &:active {
+      background: hsl(var(--hue), 50%, 90%);
+    }
+    
+    &:focus-visible {
+      outline: 2px solid hsla(var(--hue), 20%, 30%, 1);
+      outline-offset: 2px;
+    }
+  }
+  .action-button__path {
+    // will-change: transform;
+    transform-origin: 72% 40%;
+  }
+  .action-button__path--can {
+      transform-origin: 72% 77%;
+  }
+  
+  // Archive variation
+  // -----------------
+  
+  .action-button--archive {
+    --hue: var(--green-hue);
+      background-color: transparent;
+  }
+  
+  @keyframes lid-lift {
+      0% {
+          transform: rotate(0);
+      }
+      22% {
+          transform: rotate(10deg) translateY(-2.6px);
+      }
+      33% {
+          transform: rotate(-5deg) translateY(-4px);
+      }
+      55% {
+          transform: rotate(-2deg) translateY(-1.3px);
+      }
+      88% {
+          transform: rotate(0) translateY(0);
+      }
+      100% {
+          transform: rotate(0) translateY(0);
+      }
+  }
+  
+  @keyframes can-tilt {
+      0% {
+          transform: rotate(0);
+      }
+      33% {
+          transform: rotate(-5deg);
+      }
+      55% {
+          transform: rotate(0);
+      }
+  }
+  
