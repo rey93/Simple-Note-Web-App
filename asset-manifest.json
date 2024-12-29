@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/Simple-Note-Web-App/static/css/main.449c6e68.css",
+    "main.js": "/Simple-Note-Web-App/static/js/main.53d09b4d.js",
+    "static/media/logo1.png": "/Simple-Note-Web-App/static/media/logo1.3c21c52bb8a23478dc7d.png",
+    "index.html": "/Simple-Note-Web-App/index.html",
+    "main.449c6e68.css.map": "/Simple-Note-Web-App/static/css/main.449c6e68.css.map",
+    "main.53d09b4d.js.map": "/Simple-Note-Web-App/static/js/main.53d09b4d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.449c6e68.css",
+    "static/js/main.53d09b4d.js"
+  ]
+}
