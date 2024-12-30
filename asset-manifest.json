@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Simple-Note-Web-App/static/css/main.ef21e616.css",
-    "main.js": "/Simple-Note-Web-App/static/js/main.2507daa3.js",
+    "main.js": "/Simple-Note-Web-App/static/js/main.9debfac2.js",
     "static/media/logo1.png": "/Simple-Note-Web-App/static/media/logo1.3c21c52bb8a23478dc7d.png",
     "index.html": "/Simple-Note-Web-App/index.html",
     "main.ef21e616.css.map": "/Simple-Note-Web-App/static/css/main.ef21e616.css.map",
-    "main.2507daa3.js.map": "/Simple-Note-Web-App/static/js/main.2507daa3.js.map"
+    "main.9debfac2.js.map": "/Simple-Note-Web-App/static/js/main.9debfac2.js.map"
   },
   "entrypoints": [
     "static/css/main.ef21e616.css",
-    "static/js/main.2507daa3.js"
+    "static/js/main.9debfac2.js"
   ]
 }
