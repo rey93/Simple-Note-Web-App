@@ -54,11 +54,11 @@ function App() {
     event.preventDefault();
 
     if (text === '' && subjet === ''){
-        setError('No se pueden agregar asuntos y notas vacias')
+        setError("You cannot add empty subjects and notes.")
     } else if (subjet === ''){
-        setError('No se pueden agregar asuntos vacios')
+        setError("You cannot add empty subjects.")
     }else if (text === '') {
-        setError('No se pueden agregar notas vacias')
+        setError("You cannot add empty notes.")
     }else{
         
 
@@ -78,34 +78,29 @@ function App() {
             setError('');
         })
         .catch(error => {
-            console.error("Error al agregar la nota:", error);
-            setError("Error al agregar la nota")
+            console.error("Error to add notes:", error);
+            setError("Error adding notes")
           });
         }
   };
 
   
   const handleDelete = (id) =>{
-    console.log(id);
     
-    // Preguntar al usuario si realmente quiere eliminar el contacto
     if (window.confirm("¿Do you want delet this note?")) {
         try {
-            // Realizar la solicitud DELETE
+        
             axios.delete(`${URL}/${id}`)
                 .then(() => {
                     // Actualizar el estado local para eliminar la persona
                     setNotes(notes.filter(nota => nota.id !== id));
-                    console.log('Dato eliminado con éxito');
+                    console.log('Data deleted successfully');
                 })
-                .catch(error => {
-                    console.error("Error al eliminar la persona:", error);
-                });
-        } catch (error) {
-            console.error("Error al intentar eliminar la persona:", error);
-        }
+                } catch (error) {
+                    console.error("Error deleting person:", error);
+                }
     } else {
-        return; // Salir de la función si el usuario cancela
+        return;
     }
   }
 
@@ -122,18 +117,18 @@ function App() {
         // Mostrar el modal para editar
         setShowModal(true);
     } else {
-        console.error("Nota no encontrada");
+        console.error("Note not found");
     }
 };
 
   const handleSaveEdit = () => {
     // Validaciones
     if (editedsubjet === '') {
-        setError2('No se pueden agregar asuntos vacíos');
+        setError2('You cannot add empty subjects.');
         return;
     } 
     if (editedtext === '') {
-        setError2('No se pueden agregar notas vacías');
+        setError2('You cannot add empty notes.');
         return;
     }
     // Crear un nuevo objeto de nota
@@ -160,8 +155,8 @@ function App() {
             setError2(''); // Limpiar errores
         })
         .catch(error => {
-            console.error("Error al editar la nota:", error);
-            setError2("Error al editar la nota"); // Ajustar el mensaje de error
+            console.error("Error editing note:", error);
+            setError2("Error editing note:"); // Ajustar el mensaje de error
         });
 };
 
