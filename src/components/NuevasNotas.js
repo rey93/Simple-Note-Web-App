@@ -1,13 +1,12 @@
 import React from 'react';
-import { useState } from 'react';
 import { Button, Modal } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './NuevasNotas.scss'
 
 function NuevasNotas({editedsubjet,editedtext, showModal, handleSaveEdit, handleCancelEdit,
-    handleDelete, handleEdit, handleView, editing, view, notes, setEditedSubjet, setEditedText, error2}) {
+    handleDelete, handleEdit, editing, notes, setEditedSubjet, setEditedText, error2}) {
     
-    const handleShow = showModal;  // Mostrar modal
+    
     const handleClose = () => showModal = false;  // Cerrar modal
         return (
             <div className='notes-box'>

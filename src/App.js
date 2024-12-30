@@ -27,7 +27,6 @@ function App() {
   const[subjet, setSubjet] = useState('')
   const[text, setText] = useState('')
   
-  const [searchTerm, setSearchTerm] = useState('');
   const [filteredNotes, setFilteredNotes] = useState(notes);
   const [isFound, setIsFound] = useState(false);
 
@@ -35,13 +34,9 @@ function App() {
   const[error2, setError2] = useState(null)
 
   const [editing, setEditing] = useState(null);
-  const [view, setView] = useState(null);
 
   const [editedtext, setEditedText] = useState('');
   const [editedsubjet, setEditedSubjet] = useState('');
-
-  const [viewtext, setViewText] = useState('');
-  const [viewsubjet, setViewSubjet] = useState('');
 
 
   const handleChangeText =(e) =>{
@@ -58,11 +53,11 @@ function App() {
   const handleAddTask = async (event) => {
     event.preventDefault();
 
-    if (text == '' && subjet == ''){
+    if (text === '' && subjet === ''){
         setError('No se pueden agregar asuntos y notas vacias')
-    } else if (subjet == ''){
+    } else if (subjet === ''){
         setError('No se pueden agregar asuntos vacios')
-    }else if (text == '') {
+    }else if (text === '') {
         setError('No se pueden agregar notas vacias')
     }else{
         
@@ -131,24 +126,6 @@ function App() {
     }
 };
 
-const handleView = (id) => {
-    // Buscar la nota correspondiente al ID
-    const noteView = notes.find(note => note.id === id);
-    
-    if (noteView) {
-        // Establecer el índice de edición
-        setView(id); // O simplemente puedes usar el ID si lo prefieres
-        // Establecer el texto y asunto editados desde la nota encontrada
-        setViewText(noteView.text);
-        setViewSubjet(noteView.subjet);
-        // Mostrar el modal para editar
-        setShowModal(true);
-    } else {
-        console.error("Nota no encontrada");
-    }
-};
-
-
   const handleSaveEdit = () => {
     // Validaciones
     if (editedsubjet === '') {
@@ -196,7 +173,7 @@ const handleView = (id) => {
   }
 
   const handleSearch = (term) => {
-    setSearchTerm(term); // Actualiza el término de búsqueda
+    
     
 
     // Filtrar las notas basadas en el término de búsqueda
@@ -244,9 +221,7 @@ const handleView = (id) => {
                         handleCancelEdit={handleCancelEdit}
                         handleDelete={handleDelete}
                         handleEdit={handleEdit}
-                        handleView = {handleView}
                         editing={editing}
-                        view={view}
                         notes={notes}
                         setEditedSubjet={setEditedSubjet}
                         setEditedText={setEditedText}

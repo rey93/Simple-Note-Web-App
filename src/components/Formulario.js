@@ -1,16 +1,14 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-import { Button, Modal, Image, Form } from "react-bootstrap";
+import { useState } from 'react';
+import { Button, Modal } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Formulario.scss'
-import NuevasNotas from "./NuevasNotas";
 
 
 function Formulario({ subject, text, onSearch, handleChangeSubjet, handleChangeText, handleAddTask, error }) {
     
     const [showModal, setShowModal] = useState(false);  // Estado para controlar el modal
     const [searchValue, setSearchValue] = useState('');
-    const [restantes, setRestantes] = useState(subject);
 
     const handleShow = () => setShowModal(true);  // Mostrar modal
     const handleClose = () => setShowModal(false);  // Cerrar modal
