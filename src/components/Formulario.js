@@ -20,8 +20,6 @@ function Formulario({ subject, text, onSearch, handleChangeSubjet, handleChangeT
       onSearch(value); // Llama a onSearch inmediatamente con el valor actual
       
     }
-    
- 
 
     return (
 

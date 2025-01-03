@@ -12,17 +12,23 @@ const URL = "http://localhost:3002/notes"
 
 function App() {
 
-  const [notes, setNotes] = useState([])  
+    const [notes, setNotes] = useState([
+        {
+            id: "7e04da22-c1aa-4f02-827d-ffe9ed3653d6",
+            subjet: "New Note",
+            text: "This is my first note :)"
+        }
+    ]); 
 
-  useEffect(() => {
-    axios
-      .get(URL)
-      .then(response => {
-        setNotes(response.data)
-      })
-  }, [])
+    useEffect(() => {
+        const storedNotes = JSON.parse(localStorage.getItem('notes')) || [];
+        if (storedNotes.length === 0) {
+            localStorage.setItem('notes', JSON.stringify(notes)); // Guarda la nota por defecto si no hay notas almacenadas
+        } else {
+            setNotes(storedNotes);
+        }
+    }, []);
 
-  const [showModal, setShowModal] = useState(false);
 
   const[subjet, setSubjet] = useState('')
   const[text, setText] = useState('')
@@ -38,6 +44,9 @@ function App() {
   const [editedtext, setEditedText] = useState('');
   const [editedsubjet, setEditedSubjet] = useState('');
 
+  const [showModal, setShowModal] = useState(false);
+
+  
 
   const handleChangeText =(e) =>{
       e.preventDefault()
@@ -49,10 +58,11 @@ function App() {
         setSubjet(value);
     }
   }
+  const saveNotesToLocalStorage = (notes) => {
+    localStorage.setItem('notes', JSON.stringify(notes));
+    };
 
-  const handleAddTask = async (event) => {
-    event.preventDefault();
-
+const handleAddTask = () => {
     if (text === '' && subjet === ''){
         setError("You cannot add empty subjects and notes.")
     } else if (subjet === ''){
@@ -60,49 +70,29 @@ function App() {
     }else if (text === '') {
         setError("You cannot add empty notes.")
     }else{
-        
 
-        const noteObject = {
-        subjet: subjet.trim(), // Eliminar espacios en blanco al inicio y al final
+    const noteObject = {
+        subjet: subjet.trim(),
         text: text,
-        id: uuidv4() // Generar un ID único
-        };
+        id: uuidv4()
+    };
 
-        axios
-        .post(URL, noteObject)
-        .then(response => {
-            console.log(response)
-            setNotes(notes.concat(noteObject));
-            setSubjet('');
-            setText('');
-            setError('');
-        })
-        .catch(error => {
-            console.error("Error to add notes:", error);
-            setError("Error adding notes")
-          });
-        }
-  };
-
-  
-  const handleDelete = (id) =>{
-    
-    if (window.confirm("¿Do you want delet this note?")) {
-        try {
-        
-            axios.delete(`${URL}/${id}`)
-                .then(() => {
-                    // Actualizar el estado local para eliminar la persona
-                    setNotes(notes.filter(nota => nota.id !== id));
-                    console.log('Data deleted successfully');
-                })
-                } catch (error) {
-                    console.error("Error deleting person:", error);
-                }
-    } else {
-        return;
+    const updatedNotes = notes.concat(noteObject);
+    setNotes(updatedNotes);
+    saveNotesToLocalStorage(updatedNotes);
+    setSubjet('');
+    setText('');
     }
-  }
+};
+
+const handleDelete = (id) => {
+    if (window.confirm("¿Deseas eliminar esta nota?")) {
+        const updatedNotes = notes.filter(note => note.id !== id);
+        setNotes(updatedNotes);
+        saveNotesToLocalStorage(updatedNotes);
+        console.log('Data deleted successfully');
+    }
+};
 
   const handleEdit = (id) => {
     // Buscar la nota correspondiente al ID
@@ -137,27 +127,13 @@ function App() {
         subjet: editedsubjet.trim(),
         text: editedtext
     };
-    // Actualizar la nota en el servidor
-    axios
-        .put(`${URL}/${updatedNote.id}`, updatedNote) // Usar PUT para editar
-        .then(response => {
-            console.log(response);
-            // Actualizar la lista de notas en el estado local
-            const updatedNotes = notes.map(note => 
-                note.id === updatedNote.id ? updatedNote : note
-            ); // Reemplazar la nota editada por ID
-            setNotes(updatedNotes);
-            
-            // Limpiar los campos y el estado de edición
-            setSubjet('');
-            setText('');
-            setEditing(null);
-            setError2(''); // Limpiar errores
-        })
-        .catch(error => {
-            console.error("Error editing note:", error);
-            setError2("Error editing note:"); // Ajustar el mensaje de error
-        });
+        const updatedNotes = notes.map(note => note.id === updatedNote.id ? updatedNote : note);
+        
+        setNotes(updatedNotes);
+        saveNotesToLocalStorage(updatedNotes);
+        setEditing(null);
+        setEditedText('');
+        setEditedSubjet('');
 };
 
 
@@ -168,9 +144,6 @@ function App() {
   }
 
   const handleSearch = (term) => {
-    
-    
-
     // Filtrar las notas basadas en el término de búsqueda
     const results = notes.filter(nota =>
       nota.subjet.toLowerCase().includes(term.trim().toLowerCase()) || 
@@ -198,6 +171,7 @@ function App() {
                         subjet={subjet}
                         text={text}
                         onSearch={handleSearch}
+                        
                         handleChangeSubjet={handleChangeSubjet}
                         handleChangeText={handleChangeText}
                         handleAddTask={handleAddTask}
